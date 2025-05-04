@@ -33,17 +33,20 @@ This plan defines a RESTful API for NBATyPlay. It maps directly to the database 
 - **Registration**  
   - **Method:** `POST`  
   - **URL:** `/api/auth/register`  
-  - **Description:** Register a new user.  
-  - **Request Payload:**  
+  - **Description:** Register a new user. Requires password to be entered twice to confirm and prevent typing mistakes.
+  - **Request Payload:**
     ```
     {
         "username": "string",
-        "password": "string"
+        "password": "string",
+        "confirmPassword": "string"
     }
     ```
   - **Response:**  
     - `201 Created` on success.  
-    - Error codes (e.g., `400 Bad Request`) for duplicate username or invalid data.
+    - Error codes:
+      - `400 Bad Request` for duplicate username or invalid data
+      - `400 Bad Request` with message "Passwords do not match" when password confirmation fails
 
 - **Login**  
   - **Method:** `POST`  
@@ -56,7 +59,7 @@ This plan defines a RESTful API for NBATyPlay. It maps directly to the database 
       "password": "string"
     }
     ```
-  - **Response:**  
+      - **Response:**  
     - `200 OK` with authentication token/session info.  
     - `401 Unauthorized` for incorrect credentials.
 
